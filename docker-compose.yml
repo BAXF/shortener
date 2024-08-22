@@ -1,0 +1,21 @@
+services:
+  app:
+    image: mparvin/shortener:latest
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
