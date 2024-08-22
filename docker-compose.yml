@@ -7,6 +7,8 @@ services:
     depends_on:
       - db
       - redis
+    networks:
+      - shortener
 
   db:
     image: postgres
@@ -14,8 +16,16 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - shortener
 
   redis:
     image: redis
     ports:
       - "6379:6379"
+    networks:
+      - shortener
+
+networks:
+  shortener:
+    driver: bridge
